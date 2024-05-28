@@ -22,16 +22,18 @@ contract ERC20Swapper is IERC20Swapper {
         if (msg.value == 0) revert ZeroEtherAmount();
         if (minAmount == 0) revert ZeroTokenAmount();
 
-        uint currBalance = address(this).balance;
-        uint prevBalance = currBalance - msg.value;
+        uint erc20BalanceBefore = IERC20(token).balanceOf(msg.sender);
+        uint ethBalanceBefore = address(this).balance - msg.value;
 
-        uint receivedAmount = _swapEtherToToken(token, minAmount);
+        // uint receivedAmount = _swapEtherToToken(token, minAmount);
+        _swapEtherToToken(token, minAmount);
 
+        uint erc20BalanceAfter = IERC20(token).balanceOf(msg.sender);
+        uint receivedAmount = erc20BalanceAfter - erc20BalanceBefore;
         if (receivedAmount < minAmount) revert ReceivedLessTokens(receivedAmount, minAmount);
 
-        currBalance = address(this).balance;
-
-        uint etherRemainder = currBalance - prevBalance;
+        uint ethBalanceAfter = address(this).balance;
+        uint etherRemainder = ethBalanceAfter - ethBalanceBefore;
         if (etherRemainder > 0) {
             (bool sent, bytes memory data) = msg.sender.call{value: msg.value}("");
             if (sent == false) revert UnsuccesfulEtherSend(msg.sender, etherRemainder);
