@@ -1,18 +1,16 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.25 <0.9.0;
 
-import { Test } from "forge-std/Test.sol";
-import { console2 } from "forge-std/console2.sol";
+import {Test} from "forge-std/Test.sol";
+import {console2} from "forge-std/console2.sol";
 
-import { Upgrades } from "openzeppelin-foundry-upgrades/Upgrades.sol";
+import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
 
-import { ERC20Swapper } from "../src/ERC20Swapper.sol";
-import { UniswapV3Swapper } from "../src/swap-providers/UniswapV3Swapper.sol";
+import {ERC20Swapper} from "../src/ERC20Swapper.sol";
+import {UniswapV3Swapper} from "../src/swap-providers/UniswapV3Swapper.sol";
 
 contract ERC20Swapper_Test is Test {
-
     function setUp() public virtual {
-
         address proxyAddress = Upgrades.deployUUPSProxy(
             "UniswapV3Swapper.sol",
             abi.encodeCall(UniswapV3Swapper.initialize, ())
@@ -28,15 +26,19 @@ contract ERC20Swapper_Test is Test {
     // -------------- Test suite
 
     function test_swaps(uint weiAmount) public {
-        weiAmount = uint(weiAmount) % 10**19;
+        weiAmount = uint(weiAmount) % 10 ** 19;
 
         for (uint i; i < tokenInfo.length; ++i) {
-
-            uint minAmount = (weiAmount * tokenInfo[i].price * (10 ** tokenInfo[i].decimals)) / 10**18;
+            uint minAmount = (weiAmount *
+                tokenInfo[i].price *
+                (10 ** tokenInfo[i].decimals)) / 10 ** 18;
             console2.log("token:", tokenInfo[i].token, "minAmount", minAmount);
 
             vm.startPrank(user);
-            uint received = erc20Swapper.swapEtherToToken{value: weiAmount}(tokenInfo[i].token, minAmount);
+            uint received = erc20Swapper.swapEtherToToken{value: weiAmount}(
+                tokenInfo[i].token,
+                minAmount
+            );
 
             assertGt(received, minAmount);
 
@@ -44,7 +46,7 @@ contract ERC20Swapper_Test is Test {
         }
     }
 
-    // -------------- Implementation specific 
+    // -------------- Implementation specific
 
     ERC20Swapper erc20Swapper;
 

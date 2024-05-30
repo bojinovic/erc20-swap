@@ -9,7 +9,7 @@ interface IERC20ProxiedSwapper {
     /// @return The actual amount of transferred tokens
     function swapEtherToToken(
         address beneficiary,
-        address token, 
-        uint minAmount) 
-        external payable returns (uint);
+        address token,
+        uint minAmount
+    ) external payable returns (uint);
 }

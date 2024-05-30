@@ -7,7 +7,7 @@ interface IERC20Swapper {
     /// @param minAmount The minimum amount of tokens transferred to msg.sender
     /// @return The actual amount of transferred tokens
     function swapEtherToToken(
-        address token, 
-        uint minAmount) 
-        external payable returns (uint);
+        address token,
+        uint minAmount
+    ) external payable returns (uint);
 }
