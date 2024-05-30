@@ -30,7 +30,7 @@ Testing (see: `./test/ERC20Swapper.t.sol`) - done using ETH mainnet fork:
 
 ```
 rm -rf cache out
-forge test --fork-url $RPC_URL --block-number 19974395 -vvvv
+forge test --fork-url $MAINNET_RPC_URL --block-number 19974395 -vvvv
 ```
 
 Deployment (see: `./script/ERC20Swapper_DeploymentProcedure`):
@@ -43,9 +43,9 @@ forge script ./script/ERC20Swapper_DeploymentProcedure.s.sol \
 
 **Contract Addresses (Sepolia)**:
 
-- [`ERC20Swapper`]() - `a`
-- [`Proxy`]() - `a`
-- [`UniswapV3Swapper`]() - `a`
+- [`ERC20Swapper`](https://sepolia.etherscan.io/address/0x4475c444ef2392486bcebe151602ce35ba23dc4f) - `0x4475c444ef2392486bcebe151602ce35ba23dc4f`
+- [`Proxy`](https://sepolia.etherscan.io/address/0x8c52e026ae9bafc77f97dd1c0ef429c98bb40622) - `0x8c52e026ae9bafc77f97dd1c0ef429c98bb40622`
+- [`UniswapV3Swapper`](https://sepolia.etherscan.io/address/0x2192064607c431bb52b8ac9d26767a644b72e47c) - `0x2192064607c431bb52b8ac9d26767a644b72e47c`
 
 #### Notes:
 

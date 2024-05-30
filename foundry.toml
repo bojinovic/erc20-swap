@@ -7,7 +7,7 @@
   extra_output = ["storageLayout"]
   auto_detect_solc = false
   evm_version = "shanghai"
-  fuzz = { runs = 1 }
+  fuzz = { runs = 20, seed = "0x0000caffecaffecaffecaffecaffecaffecaffecaffecaffecaffecaffecaffe"}
   gas_reports = ["*"]
   optimizer = true
   optimizer_runs = 10_000

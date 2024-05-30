@@ -28,8 +28,10 @@ contract ERC20Swapper_Test is Test {
 
     // -------------- Test suite
 
-    function test_swaps(uint weiAmount) public {
-        weiAmount = uint(weiAmount) % 10 ** 19;
+    function test_swaps(uint8 seed) public {
+        uint weiAmount = (uint(seed) + 1) * 10 ** 15;
+
+        vm.startBroadcast(user);
 
         for (uint i; i < tokenInfo.length; ++i) {
             uint minAmount = (weiAmount *
@@ -37,7 +39,6 @@ contract ERC20Swapper_Test is Test {
                 (10 ** tokenInfo[i].decimals)) / 10 ** 18;
             console2.log("token:", tokenInfo[i].token, "minAmount", minAmount);
 
-            vm.startPrank(user);
             uint received = erc20Swapper.swapEtherToToken{value: weiAmount}(
                 tokenInfo[i].token,
                 minAmount
@@ -47,6 +48,8 @@ contract ERC20Swapper_Test is Test {
 
             console2.log(received, minAmount);
         }
+
+        vm.stopBroadcast();
     }
 
     // -------------- Implementation details
@@ -54,7 +57,7 @@ contract ERC20Swapper_Test is Test {
     ERC20Swapper erc20Swapper;
 
     //randomly chosen account with enough ETH mainnet balance
-    address user = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+    address user = 0x77696bb39917C91A0c3908D577d5e322095425cA;
 
     struct TokenInfo {
         address token;
