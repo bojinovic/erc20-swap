@@ -8,11 +8,16 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC20Swapper} from "./interfaces/IERC20Swapper.sol";
 import {IERC20ProxiedSwapper} from "./interfaces/IERC20ProxiedSwapper.sol";
 
-import "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
-import "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
+import {ISwapRouter} from "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
+import {TransferHelper} from "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
 
+/// @title Main contract
+/// @author @bojinovic
+/// @notice Communicates with Swap Providers via proxy
+/// @custom:experimental This is an experimental contract.
 contract ERC20Swapper is IERC20Swapper, Ownable2Step {
     /// @dev `msg.sender` becomes initial owner of `Ownable2Step`
+    /// @param swappingProxyAddress The address of the proxy for swap providers
     constructor(address swappingProxyAddress) Ownable(msg.sender) {
         swappingProxy = IERC20ProxiedSwapper(swappingProxyAddress);
     }
@@ -24,7 +29,7 @@ contract ERC20Swapper is IERC20Swapper, Ownable2Step {
     function swapEtherToToken(
         address token,
         uint minAmount
-    ) external payable returns (uint) {
+    ) external payable notPaused returns (uint) {
         if (msg.value == 0) revert ZeroEtherAmount();
         if (minAmount == 0) revert ZeroTokenAmount();
 
@@ -61,7 +66,21 @@ contract ERC20Swapper is IERC20Swapper, Ownable2Step {
         return receivedAmount;
     }
 
+    /// @notice Sets the contract's pause status
+    /// @dev When `paused` == true, no interaction with the contract is possible
+    /// @param status Value which will change the contract's pause status
+    function setPauseStatus(bool status) external onlyOwner {
+        paused = status;
+    }
+
     // -------------- Implementation details
+
+    bool public paused;
+
+    modifier notPaused() {
+        if (paused == false) revert ContractIsPaused();
+        _;
+    }
 
     IERC20ProxiedSwapper public immutable swappingProxy;
 
@@ -73,6 +92,7 @@ contract ERC20Swapper is IERC20Swapper, Ownable2Step {
         uint etherRemainder
     );
 
+    error ContractIsPaused();
     error ZeroTokenAmount();
     error ZeroEtherAmount();
     error ReceivedLessTokens(uint received, uint minAmount);

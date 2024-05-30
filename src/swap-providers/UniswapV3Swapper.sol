@@ -10,6 +10,10 @@ import {TransferHelper} from "@uniswap/v3-periphery/contracts/libraries/Transfer
 
 import {IERC20ProxiedSwapper} from "../interfaces/IERC20ProxiedSwapper.sol";
 
+/// @title DEX integration example
+/// @author @bojinovic
+/// @notice utilizes Uniswap V3 single swap
+/// @custom:experimental This is an experimental contract.
 contract UniswapV3Swapper is
     IERC20ProxiedSwapper,
     Initializable,
