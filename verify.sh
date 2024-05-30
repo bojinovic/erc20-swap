@@ -1,0 +1,1 @@
+forge verify-contract 0xc0912826c264f2a6be4d1a6ac2af337cddc32013 UniswapV3Swapper --watch --chain-id 11155111
