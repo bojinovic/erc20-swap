@@ -78,7 +78,7 @@ contract ERC20Swapper is IERC20Swapper, Ownable2Step {
     bool public paused;
 
     modifier notPaused() {
-        if (paused == false) revert ContractIsPaused();
+        if (paused == true) revert ContractIsPaused();
         _;
     }
 
