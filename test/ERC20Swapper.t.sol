@@ -23,25 +23,23 @@ contract ERC20Swapper_Test is Test {
         erc20Swapper = new ERC20Swapper(proxyAddress);
 
 
-        tokenInfo.push(TokenInfo({token: DAI, price: 3774, decimals: 18}));
-        //tokenInfo.push(TokenInfo({token: USDC, price: 3774, decimals: 6}));
+        tokenInfo.push(TokenInfo({token: DAI, price: 3700, decimals: 18}));
+        tokenInfo.push(TokenInfo({token: USDC, price: 3700, decimals: 6}));
 
     }
 
     function test_swaps(uint etherAmount, uint extraAmount) public {
-        etherAmount = 1 + etherAmount%10;
+        etherAmount = 1;
         uint weiAmount = uint(etherAmount) * 1 ether;
 
         extraAmount = extraAmount % (10**15);
-        weiAmount += extraAmount;
+        // weiAmount += extraAmount;
 
         for (uint i; i < tokenInfo.length; ++i) {
 
 
-            uint minAmount = etherAmount * tokenInfo[i].price * (10 ** tokenInfo[i].decimals);
+            uint minAmount = (weiAmount * tokenInfo[i].price * (10 ** tokenInfo[i].decimals)) / 10**18;
             console2.log("token:", tokenInfo[i].token, "minAmount", minAmount);
-
-
 
             vm.startPrank(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
             uint received = erc20Swapper.swapEtherToToken{value: weiAmount}(tokenInfo[i].token, minAmount);

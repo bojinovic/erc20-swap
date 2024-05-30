@@ -34,7 +34,7 @@ contract ERC20Swapper is IERC20Swapper, Ownable2Step {
         uint erc20BalanceBefore = IERC20(token).balanceOf(msg.sender);
         uint ethBalanceBefore = address(this).balance - msg.value;
 
-        swappingProxy.swapEtherToToken(msg.sender, token, minAmount);
+        swappingProxy.swapEtherToToken{value: msg.value}(msg.sender, token, minAmount);
 
         uint erc20BalanceAfter = IERC20(token).balanceOf(msg.sender);
         uint receivedAmount = erc20BalanceAfter - erc20BalanceBefore;
