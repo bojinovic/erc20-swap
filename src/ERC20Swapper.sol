@@ -16,7 +16,7 @@ contract ERC20Swapper is IERC20Swapper, Ownable2Step {
 
     /// @dev `msg.sender` becomes initial owner of `Ownable2Step`
     constructor(address swappingProxyAddress) Ownable(msg.sender) {
-
+        swappingProxy = IERC20ProxiedSwapper(swappingProxyAddress);
     }
 
     /// @dev swaps the `msg.value` Ether to at least `minAmount` of tokens in `address`, or reverts

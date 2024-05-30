@@ -56,7 +56,7 @@ contract UniswapV3Swapper is IERC20ProxiedSwapper, Initializable, UUPSUpgradeabl
 
     /// --------------------------------------- Implementation Details
 
-    ISwapRouter public immutable swapRouter = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
+    ISwapRouter public constant swapRouter = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
     address public constant WETH9 = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 
