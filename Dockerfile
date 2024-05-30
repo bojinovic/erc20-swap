@@ -25,7 +25,9 @@ RUN echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
 # Install foundry
 RUN curl -L https://foundry.paradigm.xyz | bash && \
+    . /root/.bashrc && \curl -L https://foundry.paradigm.xyz | bash && \
     . /root/.bashrc && \
+    foundryup
     foundryup
 
 RUN mkdir -p /go/app
