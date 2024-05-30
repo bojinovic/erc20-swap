@@ -6,8 +6,6 @@
   build_info = true
   extra_output = ["storageLayout"]
   auto_detect_solc = false
-  block_timestamp = 1_680_220_800 # March 31, 2023 at 00:00 GMT
-  bytecode_hash = "none"
   evm_version = "shanghai"
   fuzz = { runs = 1 }
   gas_reports = ["*"]
@@ -20,7 +18,7 @@
   test = "test"
 
 [profile.ci]
-  fuzz = { runs = 10 }
+  fuzz = { runs = 1000 }
   verbosity = 4
 
 [fmt]
