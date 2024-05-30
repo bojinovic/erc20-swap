@@ -8,6 +8,8 @@ import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
 import {ERC20Swapper} from "../src/ERC20Swapper.sol";
 import {UniswapV3Swapper} from "../src/swap-providers/UniswapV3Swapper.sol";
 
+/// @title Deployment script
+/// @author @bojinovic
 contract ERC20Swapper_DeploymentProcedure is Script {
     function run() public {
         vm.startBroadcast(vm.envUint("DEPLOYER_PK"));

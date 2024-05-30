@@ -9,6 +9,9 @@ import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
 import {ERC20Swapper} from "../src/ERC20Swapper.sol";
 import {UniswapV3Swapper} from "../src/swap-providers/UniswapV3Swapper.sol";
 
+/// @title E2E Test
+/// @author @bojinovic
+/// @notice Assumes the test is run on ETH mainnet
 contract ERC20Swapper_Test is Test {
     function setUp() public virtual {
         address proxyAddress = Upgrades.deployUUPSProxy(
