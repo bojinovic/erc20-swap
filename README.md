@@ -11,18 +11,23 @@ For the users' safety, the `ERC20Swapper` always checks whether the user balance
 
 ### Project Info.
 
-Standard Foundry project.
+Dependencies: Foundry, and NodeJs.
 
 #### Structure
 
 - `./src/ERC20Swapper.sol` - main contract (owner, and users interact with it)
 - `./src/swap-providers/UniswapV3Swapper.sol`
   - Uniswap V3 swapper (arb. integration example)
-    - note: if there were multiple DEXs, they would be put at `./src/swap-providers`
 
 #### Testing & Deployment
 
-Testing (see: `./test/ERC20Swapper.t.sol`) was done using ETH mainnet fork:
+Create and update `.env`:
+
+```
+cp .env.example .env
+```
+
+Testing (see: `./test/ERC20Swapper.t.sol`) - done using ETH mainnet fork:
 
 ```
 rm -rf cache out
@@ -36,6 +41,12 @@ forge script ./script/ERC20Swapper_DeploymentProcedure.s.sol \
   --rpc-url $RPC_URL \
   --broadcast
 ```
+
+**Contract Addresses (Sepolia)**:
+
+- [`ERC20Swapper`]() - `a`
+- [`Proxy`]() - `a`
+- [`UniswapV3Swapper`]() - `a`
 
 #### Notes:
 
