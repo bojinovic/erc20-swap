@@ -49,4 +49,4 @@ forge script ./script/ERC20Swapper_DeploymentProcedure.s.sol \
 
 #### Notes:
 
-- In the real scenario, the `UniswapV3Swapper` would be compiled using the same solc version as UniswapV3 (0.7.6).
+- In the real scenario, the `UniswapV3Swapper` would be compiled using the same version as UniswapV3 (0.7.6).
