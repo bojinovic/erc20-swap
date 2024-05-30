@@ -46,7 +46,7 @@ contract ERC20Swapper_Test is Test {
         }
     }
 
-    // -------------- Implementation specific
+    // -------------- Implementation details
 
     ERC20Swapper erc20Swapper;
 

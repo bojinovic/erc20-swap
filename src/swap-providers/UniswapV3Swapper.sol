@@ -26,8 +26,6 @@ contract UniswapV3Swapper is
         address token,
         uint256 minAmount
     ) external payable returns (uint amountOut) {
-        uint256 amountIn = msg.value;
-
         ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
             .ExactInputSingleParams({
                 tokenIn: WETH9,
@@ -35,16 +33,16 @@ contract UniswapV3Swapper is
                 fee: DEFAULT_POOL_FEE,
                 recipient: beneficiary,
                 deadline: block.timestamp,
-                amountIn: amountIn,
+                amountIn: msg.value,
                 amountOutMinimum: minAmount,
                 sqrtPriceLimitX96: 0
             });
 
-        amountOut = swapRouter.exactInputSingle{value: amountIn}(params);
+        amountOut = swapRouter.exactInputSingle{value: msg.value}(params);
 
         emit UniswapEthToERC20TradeExecuted(
             msg.sender,
-            amountIn,
+            msg.value,
             token,
             amountOut
         );
@@ -59,8 +57,9 @@ contract UniswapV3Swapper is
     ///@dev required by the OZ UUPS module
     function _authorizeUpgrade(address) internal override onlyOwner {}
 
-    /// --------------------------------------- Implementation Details
+    // -------------- Implementation details
 
+    //note: constants on ETH mainnet
     ISwapRouter public constant swapRouter =
         ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
 
