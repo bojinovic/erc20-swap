@@ -7,7 +7,7 @@ Main (`ERC20Swapper`) contract calls an upgradeable Proxy which will delegate ca
 Reason for this is to separate the actual swap from the provider that is performing the swap.
 If there are changes to the provider, or it becomes unresponsive, the protocol DAO could perform an upgrade.
 
-For the users' safety, the `ERC20Swapper` always checks whether the user balances (ERC20 and ETH) are correct, and it doesn't depend on the swap providers for that. This contract cannot be upgraded, but it can be paused to have enough time for the swap provider to be upgraded.
+For the users' safety, the `ERC20Swapper` always checks whether the user balances (ERC20 and ETH) are correct, and it doesn't depend on the swap providers for that. This contract cannot be upgraded, but it can be paused to have enough time to replace swap providers.
 
 ### Project Info.
 
