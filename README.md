@@ -16,8 +16,7 @@ Dependencies: Foundry, and NodeJs.
 #### Structure
 
 - `./src/ERC20Swapper.sol` - main contract (owner, and users interact with it)
-- `./src/swap-providers/UniswapV3Swapper.sol`
-  - Uniswap V3 swapper (arb. integration example)
+- `./src/swap-providers/UniswapV3Swapper.sol` - Uniswap V3 swapper (arb. integration example)
 
 #### Testing & Deployment
 
@@ -50,12 +49,4 @@ forge script ./script/ERC20Swapper_DeploymentProcedure.s.sol \
 
 #### Notes:
 
-- uniswap v3 version ....
-
-```
-source .env && anvil --rpc-url $RPC_URL --block-number $BLOCK_NUMBER
-```
-
-```
-forge test --fork-url https://eth.llamarpc.com --block-number 19974395 -vvv
-```
+- In the real scenario, the `UniswapV3Swapper` would be compiled using the same solc version as UniswapV3 (0.7.6).
