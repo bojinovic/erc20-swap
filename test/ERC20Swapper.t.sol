@@ -10,9 +10,7 @@ import { ERC20Swapper } from "../src/ERC20Swapper.sol";
 import { UniswapV3Swapper } from "../src/swap-providers/UniswapV3Swapper.sol";
 
 contract ERC20Swapper_Test is Test {
-    ERC20Swapper internal erc20Swapper;
 
-    /// @dev A function invoked before each test case is run.
     function setUp() public virtual {
 
         address proxyAddress = Upgrades.deployUUPSProxy(
@@ -22,10 +20,9 @@ contract ERC20Swapper_Test is Test {
 
         erc20Swapper = new ERC20Swapper(proxyAddress);
 
-
         tokenInfo.push(TokenInfo({token: DAI, price: 3700, decimals: 18}));
         tokenInfo.push(TokenInfo({token: USDC, price: 3700, decimals: 6}));
-
+        tokenInfo.push(TokenInfo({token: ARB, price: 3000, decimals: 18}));
     }
 
     function test_swaps(uint etherAmount, uint extraAmount) public {
@@ -62,6 +59,7 @@ contract ERC20Swapper_Test is Test {
     //     console2.log(received, minAmount);
     // }
 
+    ERC20Swapper internal erc20Swapper;
 
     struct TokenInfo {
         address token;
@@ -73,5 +71,6 @@ contract ERC20Swapper_Test is Test {
 
     address constant DAI = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
     address constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
+    address constant ARB = 0xB50721BCf8d664c30412Cfbc6cf7a15145234ad1;
 
 }
